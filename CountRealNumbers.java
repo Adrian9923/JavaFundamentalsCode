@@ -1,23 +1,31 @@
-import java.util.*;
+package AssociativeArrays;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeMap;
 
 public class CountRealNumbers {
+
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
-        String[] items = scanner.nextLine().split(" ");
-        Map<Integer,Integer> numberOccurrences = new TreeMap<>();
 
-        for (String item : items) {
-            int number = Integer.parseInt(item);
+        int[] numbers = Arrays.stream(scanner.nextLine().split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        TreeMap<Integer,Integer> counts = new TreeMap<>();
 
-            Integer occurrences = numberOccurrences.get(number);
-            if(occurrences == null) {
-                numberOccurrences.put(number, 1);
-            }else {
-                numberOccurrences.put(number,occurrences + 1);
+        for (int number : numbers) {
+            if (!counts.containsKey(number)) {
+                counts.put(number, 0);
             }
+                counts.put(number, counts.get(number) + 1);
 
         }
-        for (Map.Entry<Integer, Integer> entry : numberOccurrences.entrySet()) {
+
+
+        for (Map.Entry<Integer, Integer> entry : counts.entrySet()) {
             System.out.printf("%d -> %d\n",entry.getKey(),entry.getValue());
         }
 
